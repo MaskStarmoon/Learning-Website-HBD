@@ -1,0 +1,12 @@
+{
+  "name": "birthday-love",
+  "version": "1.0.0",
+  "description": "Website ulang tahun pacar",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
