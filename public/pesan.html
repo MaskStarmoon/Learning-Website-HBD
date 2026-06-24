@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>💕 Untuk Sayang 💕</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+touch-action:manipulation;
+-webkit-tap-highlight-color:transparent;
+overflow:hidden;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:
+linear-gradient(
+135deg,
+#ff8fc7,
+#ffb6e1,
+#87cefa
+);
+position:relative;
+}
+    
+.progress-wrapper{
+touch-action:manipulation;
+user-select:none;
+-webkit-user-select:none;
+}
+
+.container{
+position:relative;
+z-index:5;
+width:90%;
+max-width:500px;
+padding:25px;
+text-align:center;
+background:rgba(255,255,255,.15);
+backdrop-filter:blur(12px);
+border-radius:30px;
+border:2px solid rgba(255,255,255,.2);
+box-shadow:
+0 0 30px rgba(255,20,147,.3);
+}
+
+.title{
+font-size:28px;
+color:white;
+font-weight:bold;
+margin-bottom:20px;
+text-shadow:0 0 15px hotpink;
+}
+
+.progress-wrapper{
+display:flex;
+justify-content:center;
+margin-bottom:20px;
+cursor:pointer;
+}
+
+svg{
+filter:drop-shadow(0 0 20px hotpink);
+}
+
+#percentText{
+fill:white;
+font-size:24px;
+font-weight:bold;
+}
+
+.card{
+padding:20px;
+border-radius:25px;
+background:rgba(255,255,255,.15);
+min-height:220px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+transition:.6s;
+}
+
+.fade-out{
+opacity:0;
+transform:translateY(20px);
+}
+
+.fade-in{
+opacity:1;
+transform:translateY(0px);
+}
+
+.gif{
+width:180px;
+border-radius:20px;
+margin-bottom:15px;
+box-shadow:0 0 20px rgba(255,105,180,.6);
+}
+
+.message{
+font-size:20px;
+color:white;
+font-weight:600;
+line-height:1.6;
+}
+
+.nextBtn{
+margin-top:20px;
+padding:15px 35px;
+border:none;
+border-radius:999px;
+cursor:pointer;
+font-size:18px;
+font-weight:bold;
+color:white;
+background:
+linear-gradient(
+90deg,
+#ff1493,
+#ff69b4
+);
+box-shadow:
+0 0 15px #ff1493,
+0 0 40px #ff1493;
+transition:.3s;
+}
+
+.nextBtn:hover{
+transform:scale(1.05);
+}
+
+.hidden{
+display:none;
+}
+
+.heart{
+position:absolute;
+animation:floatHeart 6s linear forwards;
+pointer-events:none;
+}
+
+@keyframes floatHeart{
+0%{
+opacity:0;
+transform:translateY(0) scale(.5);
+}
+20%{
+opacity:1;
+}
+100%{
+opacity:0;
+transform:translateY(-700px) scale(1.8);
+}
+}
+
+.balloon{
+position:absolute;
+bottom:-200px;
+font-size:50px;
+animation:balloon 12s linear infinite;
+}
+
+@keyframes balloon{
+from{
+transform:translateY(0);
+}
+to{
+transform:translateY(-130vh);
+}
+}
+
+.confetti{
+position:absolute;
+font-size:24px;
+animation:confetti 4s linear forwards;
+}
+
+@keyframes confetti{
+0%{
+opacity:1;
+}
+100%{
+opacity:0;
+transform:
+translateY(700px)
+rotate(720deg);
+}
+}
+
+.sparkle{
+position:absolute;
+animation:sparkle 2s linear infinite;
+}
+
+@keyframes sparkle{
+50%{
+transform:scale(1.6);
+}
+}
+
+.finalMessage{
+font-size:30px;
+color:white;
+font-weight:bold;
+text-shadow:
+0 0 10px white,
+0 0 30px hotpink;
+}
+
+.tapText{
+margin-bottom:15px;
+color:white;
+font-size:14px;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="title">
+💖 Birthday Love 💖
+</div>
+
+<div id="loveSection">
+
+<div class="tapText">
+Tap hati sampai 100% ❤️
+</div>
+
+<div class="progress-wrapper" id="heartTap">
+
+<svg width="200" height="180" viewBox="0 0 512 512">
+
+<defs>
+<clipPath id="heartClip">
+<path d="M256 464s-32-24-64-52C96 336 32 272 32 176 32 96 96 48 160 48c40 0 72 24 96 56 24-32 56-56 96-56 64 0 128 48 128 128 0 96-64 160-160 236-32 28-64 52-64 52z"/>
+</clipPath>
+</defs>
+
+<path
+fill="rgba(255,255,255,.2)"
+d="M256 464s-32-24-64-52C96 336 32 272 32 176 32 96 96 48 160 48c40 0 72 24 96 56 24-32 56-56 96-56 64 0 128 48 128 128 0 96-64 160-160 236-32 28-64 52-64 52z"
+/>
+
+<rect
+id="heartFill"
+x="0"
+y="512"
+width="512"
+height="0"
+fill="#ff1493"
+clip-path="url(#heartClip)"
+></rect>
+
+<text
+id="percentText"
+x="256"
+y="250"
+text-anchor="middle"
+>
+0%
+</text>
+
+</svg>
+
+</div>
+
+</div>
+
+<div id="messageSection" class="hidden">
+
+<div class="card fade-in" id="card">
+
+<img id="gif" class="gif">
+
+<div id="messageText" class="message"></div>
+
+<button class="nextBtn" id="nextBtn">
+💖 Lanjutkan 💖
+</button>
+
+</div>
+
+</div>
+
+</div>
+    
+<audio id="loveMusic" loop>
+    <source src="audio/love-theme.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="birthdayMusic" loop>
+    <source src="audio/happy-birthday.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const umur = 18;
+
+const messages = [
+
+"Hai sayang ❤️",
+
+"Hari ini hari spesial kamu ✨",
+
+"Terima kasih sudah hadir di hidup aku 🥰",
+
+"Aku bersyukur bisa kenal kamu 🌷",
+
+"Semoga semua impian kamu tercapai 💕",
+
+"Semoga selalu sehat dan bahagia ❤️"
+
+];
+
+const gifs = [
+
+"https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGcyeGJnMzEwbHUzd204bDI1aDVzdjBpcTM3ZWdvdTg1cHQ3OTRhMiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/KztT2c4u8mYYUiMKdJ/giphy.gif",
+
+"https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGcyeGJnMzEwbHUzd204bDI1aDVzdjBpcTM3ZWdvdTg1cHQ3OTRhMiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/fwRqJpejeI3NBTSar4/giphy.gif",
+
+"https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3aWI2bTZrcHU0aHY3NzVkaWx6dHp4N2FleHVyZGgwcDBoNHpkN2tkZCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/yc2pHdAoxVOrJ2m5Ha/giphy.gif"
+
+];
+
+let percent = 0;
+
+const heartTap = document.getElementById("heartTap");
+const heartFill = document.getElementById("heartFill");
+const percentText = document.getElementById("percentText");
+
+heartTap.addEventListener("click",()=>{
+
+if(percent>=100) return;
+
+percent++;
+
+percentText.textContent=percent+"%";
+
+heartFill.setAttribute(
+"y",
+512-(percent*5.12)
+);
+
+heartFill.setAttribute(
+"height",
+percent*5.12
+);
+
+createHeart();
+
+if(percent===100){
+
+setTimeout(startMessages,800);
+
+}
+
+});
+
+function startMessages(){
+
+document.getElementById("loveSection").classList.add("hidden");
+document.getElementById("messageSection").classList.remove("hidden");
+    
+let musicStarted = false;
+
+heartTap.addEventListener("click", () => {
+
+    if (!musicStarted) {
+        musicStarted = true;
+        document.getElementById("loveMusic").play();
+    }
+
+});
+
+showMessage();
+
+}
+
+let current = 0;
+
+function showMessage(){
+
+const card=document.getElementById("card");
+const gif=document.getElementById("gif");
+const text=document.getElementById("messageText");
+
+card.classList.add("fade-out");
+
+setTimeout(()=>{
+
+gif.src=gifs[current%gifs.length];
+
+text.innerHTML=messages[current];
+
+card.classList.remove("fade-out");
+
+},400);
+
+}
+
+document.getElementById("nextBtn")
+.addEventListener("click",()=>{
+
+current++;
+
+if(current >= messages.length){
+
+showBirthday();
+
+return;
+
+}
+
+showMessage();
+
+});
+
+function showBirthday(){
+
+document.getElementById("card").innerHTML=`
+
+<div class="finalMessage">
+
+🎉 Selamat Ulang Tahun Ke ${umur} Sayanggg :3 🎂
+
+</div>
+
+`;
+
+launchConfetti();
+launchBalloons();
+
+}
+
+function createHeart(){
+
+const heart=document.createElement("div");
+
+heart.className="heart";
+heart.innerHTML="💖";
+
+heart.style.left=Math.random()*window.innerWidth+"px";
+heart.style.bottom="-50px";
+
+heart.style.fontSize=
+(20+Math.random()*30)+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+
+}
+
+setInterval(createHeart,1200);
+
+function launchConfetti(){
+
+for(let i=0;i<200;i++){
+
+const c=document.createElement("div");
+
+c.className="confetti";
+
+c.innerHTML=
+["🎉","🎊","✨","💖"][Math.floor(Math.random()*4)];
+
+c.style.left=Math.random()*100+"%";
+c.style.top="-20px";
+
+c.style.animationDuration=
+(2+Math.random()*3)+"s";
+
+document.body.appendChild(c);
+
+}
+
+}
+
+function launchBalloons(){
+
+for(let i=0;i<20;i++){
+
+const b=document.createElement("div");
+
+b.className="balloon";
+
+b.innerHTML=
+["🎈","🎈","🎈","🎀"][Math.floor(Math.random()*4)];
+
+b.style.left=Math.random()*100+"%";
+
+b.style.animationDuration=
+(8+Math.random()*6)+"s";
+
+document.body.appendChild(b);
+
+}
+
+}
+
+for(let i=0;i<25;i++){
+
+const s=document.createElement("div");
+
+s.className="sparkle";
+
+s.innerHTML="✨";
+
+s.style.left=Math.random()*100+"%";
+s.style.top=Math.random()*100+"%";
+
+s.style.animationDelay=
+Math.random()*2+"s";
+
+document.body.appendChild(s);
+
+}
+
+</script>
+
+</body>
+</html>
