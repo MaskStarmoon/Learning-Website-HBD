@@ -25,9 +25,10 @@ align-items:center;
 background:
 linear-gradient(
 135deg,
-#ff8fc7,
-#ffb6e1,
-#87cefa
+#0f172a,
+#1e3a8a,
+#60a5fa,
+#ffffff
 );
 position:relative;
 }
@@ -50,7 +51,7 @@ backdrop-filter:blur(12px);
 border-radius:30px;
 border:2px solid rgba(255,255,255,.2);
 box-shadow:
-0 0 30px rgba(255,20,147,.3);
+0 0 30px rgba(96,165,250,.5);
 }
 
 .title{
@@ -58,7 +59,9 @@ font-size:28px;
 color:white;
 font-weight:bold;
 margin-bottom:20px;
-text-shadow:0 0 15px hotpink;
+text-shadow:
+0 0 15px #60a5fa,
+0 0 30px #93c5fd;
 }
 
 .progress-wrapper{
@@ -69,12 +72,14 @@ cursor:pointer;
 }
 
 svg{
-filter:drop-shadow(0 0 20px hotpink);
+filter:
+drop-shadow(0 0 20px #60a5fa)
+drop-shadow(0 0 40px #93c5fd);
 }
 
 #percentText{
 fill:white;
-font-size:24px;
+font-size:42px;
 font-weight:bold;
 }
 
@@ -83,6 +88,8 @@ padding:20px;
 border-radius:25px;
 background:rgba(255,255,255,.15);
 min-height:220px;
+max-height:85vh;
+overflow-y:auto;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -104,7 +111,7 @@ transform:translateY(0px);
 width:180px;
 border-radius:20px;
 margin-bottom:15px;
-box-shadow:0 0 20px rgba(255,105,180,.6);
+box-shadow:0 0 20px rgba(96,165,250,.8);
 }
 
 .message{
@@ -126,17 +133,25 @@ color:white;
 background:
 linear-gradient(
 90deg,
-#ff1493,
-#ff69b4
+#2563eb,
+#60a5fa
 );
 box-shadow:
-0 0 15px #ff1493,
-0 0 40px #ff1493;
+0 0 15px #60a5fa,
+0 0 30px #60a5fa,
+0 0 50px #93c5fd;
 transition:.3s;
 }
 
 .nextBtn:hover{
 transform:scale(1.05);
+}
+    
+.nextBtn:disabled{
+
+opacity:.5;
+cursor:not-allowed;
+
 }
 
 .hidden{
@@ -209,18 +224,34 @@ transform:scale(1.6);
 }
 
 .finalMessage{
-font-size:30px;
+font-size:28px;
 color:white;
 font-weight:bold;
+text-align:center;
+line-height:1.5;
+word-wrap:break-word;
+overflow-wrap:break-word;
+max-width:100%;
+
 text-shadow:
 0 0 10px white,
-0 0 30px hotpink;
+0 0 25px #60a5fa,
+0 0 50px #93c5fd;
 }
 
 .tapText{
 margin-bottom:15px;
 color:white;
 font-size:14px;
+}
+    
+.memoryImage{
+width:100%;
+border-radius:20px;
+max-height:350px;
+object-fit:contain;
+background:
+rgba(255,255,255,.05);
 }
 
 </style>
@@ -229,7 +260,7 @@ font-size:14px;
 <div class="container">
 
 <div class="title">
-💖 Birthday Love 💖
+🤍 Birthday Love 🤍
 </div>
 
 <div id="loveSection">
@@ -276,6 +307,15 @@ text-anchor="middle"
 
 </div>
 
+<div class="slideshow">
+
+<img
+id="memoryImage"
+src=""
+class="memoryImage">
+
+</div>
+    
 </div>
 
 <div id="messageSection" class="hidden">
@@ -287,7 +327,7 @@ text-anchor="middle"
 <div id="messageText" class="message"></div>
 
 <button class="nextBtn" id="nextBtn">
-💖 Lanjutkan 💖
+    Lanjutkan
 </button>
 
 </div>
@@ -310,9 +350,9 @@ const umur = 18;
 
 const messages = [
 
-"Hai sayang ❤️",
+"Hai ganteng 🤍",
 
-"Hari ini hari spesial kamu ✨",
+"today is my boyfriend's birthday, he turns 18! ✨",
 
 "Terima kasih sudah hadir di hidup aku 🥰",
 
@@ -320,17 +360,32 @@ const messages = [
 
 "Semoga semua impian kamu tercapai 💕",
 
-"Semoga selalu sehat dan bahagia ❤️"
+"Semoga selalu sehat dan bahagia 🤍",
+
+"Happy birthday my dear 🤍",
 
 ];
 
 const gifs = [
 
-"https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGcyeGJnMzEwbHUzd204bDI1aDVzdjBpcTM3ZWdvdTg1cHQ3OTRhMiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/KztT2c4u8mYYUiMKdJ/giphy.gif",
+"https://media.giphy.com/media/jst0dxUybUkdH9yTyB/giphy.gif",
 
-"https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGcyeGJnMzEwbHUzd204bDI1aDVzdjBpcTM3ZWdvdTg1cHQ3OTRhMiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/fwRqJpejeI3NBTSar4/giphy.gif",
+"https://media.giphy.com/media/JCSr1AN4mNgLKAy3a0/giphy.gif",
 
-"https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3aWI2bTZrcHU0aHY3NzVkaWx6dHp4N2FleHVyZGgwcDBoNHpkN2tkZCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/yc2pHdAoxVOrJ2m5Ha/giphy.gif"
+"https://media.giphy.com/media/754u3UNlbbc2tMg97K/giphy.gif",
+
+"https://media.giphy.com/media/wYzNWKJ2jU4rNX6SAO/giphy.gif",
+
+"https://media.giphy.com/media/XlZGsZ8jflqn21UhZG/giphy.gif"
+
+];
+    
+const memories = [
+
+"img/chat1.jpg",
+"img/chat4.jpg",
+"img/chat1.jpg",
+"img/chat4.jpg"
 
 ];
 
@@ -368,11 +423,6 @@ setTimeout(startMessages,800);
 
 });
 
-function startMessages(){
-
-document.getElementById("loveSection").classList.add("hidden");
-document.getElementById("messageSection").classList.remove("hidden");
-    
 let musicStarted = false;
 
 heartTap.addEventListener("click", () => {
@@ -383,47 +433,109 @@ heartTap.addEventListener("click", () => {
     }
 
 });
+    
 
-showMessage();
+let memoryIndex = 0;
+
+const memoryImage =
+document.getElementById("memoryImage");
+
+memoryImage.src = memories[0];
+
+setInterval(()=>{
+
+    memoryIndex++;
+
+    if(memoryIndex >= memories.length){
+        memoryIndex = 0;
+    }
+
+    memoryImage.src =
+    memories[memoryIndex];
+
+},3000);
+
+function startMessages(){
+
+    document.getElementById("loveMusic").pause();
+
+    const birthdayMusic =
+    document.getElementById("birthdayMusic");
+
+    birthdayMusic.currentTime = 0;
+    birthdayMusic.play();
+
+    document.getElementById("loveSection")
+    .classList.add("hidden");
+
+    document.getElementById("messageSection")
+    .classList.remove("hidden");
+
+    showMessage();
+
+}
+    
+async function typeWriter(element,text){
+
+    element.innerHTML="";
+
+    for(let i=0;i<text.length;i++){
+
+        element.innerHTML += text[i];
+
+        await new Promise(resolve=>
+            setTimeout(resolve,40)
+        );
+
+    }
 
 }
 
 let current = 0;
 
-function showMessage(){
+async function showMessage(){
 
-const card=document.getElementById("card");
-const gif=document.getElementById("gif");
-const text=document.getElementById("messageText");
+    const card = document.getElementById("card");
+    const gif = document.getElementById("gif");
+    const text = document.getElementById("messageText");
+    const nextBtn = document.getElementById("nextBtn");
 
-card.classList.add("fade-out");
+    nextBtn.disabled = true;
 
-setTimeout(()=>{
+    card.classList.add("fade-out");
 
-gif.src=gifs[current%gifs.length];
+    setTimeout(async()=>{
 
-text.innerHTML=messages[current];
+        gif.src = gifs[current % gifs.length];
 
-card.classList.remove("fade-out");
+        text.innerHTML = "";
 
-},400);
+        card.classList.remove("fade-out");
+
+        await typeWriter(
+            text,
+            messages[current]
+        );
+
+        nextBtn.disabled = false;
+
+    },400);
 
 }
-
+    
 document.getElementById("nextBtn")
 .addEventListener("click",()=>{
 
-current++;
+    current++;
 
-if(current >= messages.length){
+    if(current >= messages.length){
 
-showBirthday();
+        showBirthday();
+        return;
 
-return;
+    }
 
-}
-
-showMessage();
+    showMessage();
 
 });
 
@@ -432,15 +544,86 @@ function showBirthday(){
 document.getElementById("card").innerHTML=`
 
 <div class="finalMessage">
+🎉 Selamat Ulang Tahun
+Ke ${umur} Tahun Sayanggg 🎂
+</div>
 
-🎉 Selamat Ulang Tahun Ke ${umur} Sayanggg :3 🎂
+<div style="color:white;font-size:18px;">
+Scan QR ini kalau kangen aku 💙
+</div>
+
+<br>
+
+<img
+src="img/MeQrWa.png"
+style="
+width:220px;
+border-radius:20px;
+background:white;
+padding:10px;
+box-shadow:0 0 30px rgba(96,165,250,.8);
+">
+
+<div style="
+color:white;
+font-size:16px;
+margin-top:15px;
+line-height:1.7;
+">
+
+Kalau suatu hari kamu sedih,
+kesepian,
+atau mau cerita...
+
+aku selalu ada buat kamu 💙
 
 </div>
+
+<br>
+
+<button
+id="downloadGift"
+class="nextBtn">
+
+🎁 Ambil Hadiah Spesial
+
+</button>
 
 `;
 
 launchConfetti();
 launchBalloons();
+
+setTimeout(downloadGift,2000);
+
+const btn =
+document.getElementById(
+"downloadGift"
+);
+
+btn.addEventListener(
+"click",
+downloadGift
+);
+
+}
+    
+function downloadGift(){
+
+const link =
+document.createElement("a");
+
+link.href =
+"file/hadiah_spesial.pdf";
+
+link.download =
+"hadiah_spesial.pdf";
+
+document.body.appendChild(link);
+
+link.click();
+
+document.body.removeChild(link);
 
 }
 
@@ -532,5 +715,5 @@ document.body.appendChild(s);
 
 </script>
 
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10c6c01edb8d12e',t:'MTc4MjMxMTMzNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10c6eed995dd145',t:'MTc4MjMxMTQ1Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10cb226dcd98a38',t:'MTc4MjMxNDIxMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1144509a9516fa5',t:'MTc4MjM5MzYyNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1145e83caa12a25',t:'MTc4MjM5NDY3MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a11467a4a868bb70',t:'MTc4MjM5NTA0NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a114b5852e527841',t:'MTc4MjM5ODIzNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a114bae1af0dd12c',t:'MTc4MjM5ODQ1NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1194eb3db60d30d',t:'MTc4MjQ0NjQ1MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
