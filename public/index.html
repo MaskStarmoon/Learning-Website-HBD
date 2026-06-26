@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🤍 Happy Birthday Sayang 🤍</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e3a8a,
+#60a5fa,
+#ffffff
+);
+position:relative;
+}
+
+body::before{
+content:'';
+position:absolute;
+inset:0;
+background:url('https://media.giphy.com/media/jst0dxUybUkdH9yTyB/giphy.gif');
+background-size:300px;
+opacity:.18;
+animation:floatBg 20s linear infinite;
+}
+
+@keyframes floatBg{
+from{
+transform:translateY(0);
+}
+to{
+transform:translateY(-100px);
+}
+}
+
+.container{
+position:relative;
+z-index:2;
+width:90%;
+max-width:420px;
+background:rgba(255,255,255,.15);
+backdrop-filter:blur(12px);
+padding:25px;
+border-radius:30px;
+text-align:center;
+border:2px solid rgba(255,255,255,.3);
+box-shadow:
+0 0 25px rgba(96,165,250,.5),
+0 0 50px rgba(147,197,253,.4);
+}
+
+.title{
+font-size:28px;
+color:white;
+font-weight:bold;
+text-shadow:
+0 0 15px #60a5fa,
+0 0 30px #93c5fd;
+margin-bottom:10px;
+}
+
+.subtitle{
+color:white;
+margin-bottom:25px;
+font-size:14px;
+}
+
+.password-display{
+height:55px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+margin-bottom:25px;
+}
+
+.dot{
+width:16px;
+height:16px;
+border-radius:50%;
+background:rgba(255,255,255,.3);
+border:2px solid white;
+transition:.3s;
+}
+
+.dot.active{
+background:#60a5fa;
+box-shadow:
+0 0 10px #60a5fa,
+0 0 25px #60a5fa,
+0 0 40px #93c5fd
+}
+
+.keypad{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+
+.btn{
+width:75px;
+height:75px;
+margin:auto;
+border:2px solid rgba(255,255,255,.8);
+border-radius:50%;
+font-size:24px;
+font-weight:bold;
+cursor:pointer;
+color:white;
+background:
+rgba(255,255,255,.08);
+backdrop-filter:blur(8px);
+box-shadow:
+0 0 10px #60a5fa,
+0 0 20px #60a5fa,
+0 0 40px rgba(96,165,250,.6);
+transition:.25s;
+}
+
+.btn:hover{
+transform:scale(1.08);
+box-shadow:
+0 0 15px #60a5fa,
+0 0 35px #60a5fa,
+0 0 60px #93c5fd;
+}
+
+.btn:active{
+transform:scale(.95);
+}
+
+.delete{
+background:
+rgba(255,255,255,.05);
+border:2px solid #93c5fd;
+}
+
+.enter{
+background:
+rgba(96,165,250,.15);
+border:2px solid #60a5fa;
+}
+
+.message{
+margin-top:20px;
+height:20px;
+color:white;
+font-size:14px;
+}
+
+.shake{
+animation:shake .4s;
+}
+
+@keyframes shake{
+0%{transform:translateX(0);}
+25%{transform:translateX(-10px);}
+50%{transform:translateX(10px);}
+75%{transform:translateX(-10px);}
+100%{transform:translateX(0);}
+}
+
+.success{
+animation:success .8s ease;
+}
+
+@keyframes success{
+0%{
+transform:scale(1);
+}
+50%{
+transform:scale(1.08);
+}
+100%{
+transform:scale(1);
+}
+}
+
+.heart{
+position:absolute;
+font-size:20px;
+animation:floatHeart 5s linear forwards;
+pointer-events:none;
+}
+
+@keyframes floatHeart{
+0%{
+transform:translateY(0) scale(0.5);
+opacity:0;
+}
+20%{
+opacity:1;
+}
+100%{
+transform:translateY(-600px) scale(1.5);
+opacity:0;
+}
+}
+
+.top-gif{
+width:140px;
+margin-bottom:15px;
+filter:
+drop-shadow(0 0 15px #60a5fa)
+drop-shadow(0 0 30px #93c5fd);
+}
+
+.lock-icon{
+font-size:45px;
+margin-bottom:10px;
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+50%{
+transform:scale(1.1);
+}
+}
+
+.loading{
+display:none;
+margin-top:15px;
+color:white;
+}
+
+.bar{
+width:100%;
+height:10px;
+border-radius:999px;
+overflow:hidden;
+background:rgba(255,255,255,.2);
+margin-top:10px;
+}
+
+.fill{
+width:0%;
+height:100%;
+background:
+linear-gradient(
+90deg,
+#60a5fa,
+#93c5fd
+);
+transition:.3s;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="container">
+
+<div class="lock-icon">🔒💙</div>
+
+<img
+class="top-gif"
+src="https://media.giphy.com/media/jst0dxUybUkdH9yTyB/giphy.gif"
+>
+
+<div class="title">
+Clue : YOUR BIRTDAY
+</div>
+
+<div class="subtitle">
+hi love, ayo tebak passwordnya, i bet u know🤍
+</div>
+
+<div class="password-display" id="display">
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+</div>
+
+<div class="keypad">
+
+<button class="btn">1</button>
+<button class="btn">2</button>
+<button class="btn">3</button>
+
+<button class="btn">4</button>
+<button class="btn">5</button>
+<button class="btn">6</button>
+
+<button class="btn">7</button>
+<button class="btn">8</button>
+<button class="btn">9</button>
+
+<button class="btn delete">⌫</button>
+<button class="btn">0</button>
+<button class="btn enter">❤</button>
+
+</div>
+
+<div class="message" id="message"></div>
+
+<div class="loading" id="loading">
+Membuka hadiah untuk sayang... 💝
+<div class="bar">
+<div class="fill" id="fill"></div>
+</div>
+</div>
+
+</div>
+
+<script>
+const PASSWORD = "200708";
+
+let input = "";
+
+const dots = document.querySelectorAll(".dot");
+const message = document.getElementById("message");
+const container = document.getElementById("container");
+
+function updateDots(){
+
+dots.forEach((dot,index)=>{
+
+if(index < input.length){
+dot.classList.add("active");
+}else{
+dot.classList.remove("active");
+}
+
+});
+
+}
+
+function createHeart(){
+
+const heart=document.createElement("div");
+
+heart.className="heart";
+heart.innerHTML="💖";
+
+heart.style.left=Math.random()*window.innerWidth+"px";
+heart.style.bottom="-20px";
+heart.style.fontSize=(20+Math.random()*25)+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},5000);
+
+}
+
+setInterval(createHeart,900);
+
+document.querySelectorAll(".btn").forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+const value=btn.textContent;
+
+if(!isNaN(value)){
+
+if(input.length<6){
+
+input+=value;
+updateDots();
+
+}
+
+}
+
+else if(value==="⌫"){
+
+input=input.slice(0,-1);
+updateDots();
+
+}
+
+else if(value==="❤"){
+
+checkPassword();
+
+}
+
+});
+
+});
+
+function checkPassword(){
+
+if(input===PASSWORD){
+
+message.innerHTML="Password Benar 💕";
+message.style.color="#7CFF7C";
+
+container.classList.add("success");
+
+const loading=document.getElementById("loading");
+const fill=document.getElementById("fill");
+
+loading.style.display="block";
+
+let percent=0;
+
+const interval=setInterval(()=>{
+
+percent+=5;
+fill.style.width=percent+"%";
+
+if(percent>=100){
+
+clearInterval(interval);
+
+window.location.href="pesan.html";
+
+}
+
+},80);
+
+}else{
+
+message.innerHTML="Upss salah sayang 😝";
+message.style.color="#ffcccc";
+
+container.classList.add("shake");
+
+setTimeout(()=>{
+container.classList.remove("shake");
+},400);
+
+input="";
+updateDots();
+
+}
+
+}
+
+document.addEventListener("keydown",(e)=>{
+
+if(!isNaN(e.key)){
+
+if(input.length<6){
+
+input+=e.key;
+updateDots();
+
+}
+
+}
+
+if(e.key==="Backspace"){
+
+input=input.slice(0,-1);
+updateDots();
+
+}
+
+if(e.key==="Enter"){
+
+checkPassword();
+
+}
+
+});
+</script>
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10bf21fcb3e229d',t:'MTc4MjMwNjM0NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a11450dafab602d7',t:'MTc4MjM5NDExMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a11498226f59d6ee',t:'MTc4MjM5NzAzMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1194b644fc1a876',t:'MTc4MjQ0NjMxNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1195bd6cab874cd',t:'MTc4MjQ0Njk4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
